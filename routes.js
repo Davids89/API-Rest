@@ -1,6 +1,6 @@
 //routes.js
 
-module.exports = function(){
+module.exports = function(app, Todo){
 	//obtener todos los TODO
 	app.get('/api/todos', function(req, res){
 		//usamos mongoose para obtener todos los TODO
