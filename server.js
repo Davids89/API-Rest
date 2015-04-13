@@ -19,12 +19,12 @@ app.use(bodyParser.json({ type : 'application/vnd.api+json' })); //parsear appli
 app.use(methodOverride());
 
 //definimos el modelo (se pasará a otro archivo)
-var Todo = mongoose.model('Todo', {
+var Tarea = mongoose.model('Tarea', {
 	text : String
 });
 
 //Rutas (pasar a otro fichero)
-require('./routes.js')(app, Todo);
+require('./routes.js')(app, Tarea);
 
 //Escucha y lanza el servidor en el 8080
 app.listen(8080);

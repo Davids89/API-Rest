@@ -1,15 +1,15 @@
 //public/core.js
 
 //primero creamos el modulo de angular
-var davidTodo = angular.module('davidTodo',[]);
+angular.module('davidTodo',[])
 
-function mainController($scope, $http){
+.controller('mainController', function ($scope, $http){
 	$scope.formData = {};
 
 	//cuando abramos la web se van a mostrar todos los TODO
-	$http.get('/api/todos')
+	$http.get('/api/tareas')
 		.success(function(data){
-			$scope.todos = data;
+			$scope.tareas = data;
 			console.log(data);
 		})
 		.error(function(data){
@@ -18,10 +18,10 @@ function mainController($scope, $http){
 
 	//cuando aceptemos el formulario de los TODO hay que mandar el texto a la API
 	$scope.createTodo = function(){
-		$http.post('/api/todos', $scope.formData)
+		$http.post('/api/tareas', $scope.formData)
 			.success(function(data){
 				$scope.formData = {}; //limpiamos el formulario
-				$scope.todos = data;
+				$scope.tareas = data;
 				console.log(data);
 			})
 			.error(function(data){
@@ -31,13 +31,13 @@ function mainController($scope, $http){
 
 	//borrar un TODO después de hacer check
 	$scope.deleteTodo = function(id){
-		$http.delete('/api/todos/'+id)
+		$http.delete('/api/tareas/'+id)
 			.success(function(data){
-				$scope.todos = data;
+				$scope.tareas = data;
 				console.log(data);
 			})
 			.error(function(data){
 				console.log('Error: '+data);
 			})
 	}
-}
+})

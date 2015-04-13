@@ -1,49 +1,49 @@
 //routes.js
 
-module.exports = function(app, Todo){
+module.exports = function(app, Tarea){
 	//obtener todos los TODO
-	app.get('/api/todos', function(req, res){
+	app.get('/api/tareas', function(req, res){
 		//usamos mongoose para obtener todos los TODO
-		Todo.find(function(err, todos){
+		Tarea.find(function(err, tareas){
 			//si hay un error lo vamos a imprimir
 			if(err)
 				res.send(err);
-			res.json(todos); //retornamos todos los TODO en formato Json
+			res.json(tareas); //retornamos todos los TODO en formato Json
 		});
 	});
 
 	//creamos un todo y devolvemos todos los TODO después de la creación
-	app.post('/api/todos', function(req, res){
+	app.post('/api/tareas', function(req, res){
 		//creamos el todo, la info viene de una request AJAX desde Angular
-		Todo.create({
+		Tarea.create({
 			text : req.body.text,
 			done : false
-		}, function(err, todo){
+		}, function(err, tarea){
 			if(err)
 				res.send(err);
 
 			//cogemos y retornamos todos los TODO despues de crear uno
-			Todo.find(function(err, todos){
+			Tarea.find(function(err, tareas){
 				if(err)
 					res.send(err);
-				res.json(todos);
+				res.json(tareas);
 			});
 		});
 	});
 
 	//borrar un TODO
-	app.delete('/api/todos/:todo_id', function(req, res){
-		Todo.remove({
-			_id : req.params.todo_id
+	app.delete('/api/tareas/:tarea_id', function(req, res){
+		Tarea.remove({
+			_id : req.params.tarea_id
 		}, function(err, todo){
 			if(err)
 				res.send(err);
 
 			//ahora retornamos los que quedan
-			Todo.find(function(err,todos){
+			Tarea.find(function(err,tareas){
 				if(err)
 					res.send(err);
-				res.json(todos);
+				res.json(tareas);
 			});
 		});
 	});
